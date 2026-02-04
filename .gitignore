@@ -1,0 +1,45 @@
+# python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+parse/venv/
+*.egg-info/
+.pytest_cache/
+
+# env
+.env
+.env.local
+
+# data — large or regenerable
+data/json/cvelistV5/cves/
+data/raw_pdfs/
+data/parsed_json/
+data/parsed_md/
+data/failed_pdfs/
+data/neo4j_data/
+data/cwe_attack_mapping.json
+data/enterprise-attack.json
+cve_normalized.jsonl
+
+# embeddings (large npy / jsonl)
+embeddings/*.npy
+embeddings/*.jsonl
+
+# NER outputs (regenerable from SLURM)
+output/cve_shards/
+output/cve_entities_all.jsonl
+output/cve_gliner_entities.jsonl
+
+# vector store
+qdrant_storage/
+
+# external clones (kept locally, not committed)
+CyNER/
+
+# misc
+miniconda.sh
+.DS_Store
+*.log
+structure.txt
