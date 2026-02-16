@@ -22,3 +22,7 @@ WIP planning doc.
 - extract key info from source materials
 - searchability across historical event logs / threat reports
 - enriched contextual analysis for incident response
+
+## decisions log
+
+- 2026-02-16: pdfplumber drops table structure. trying docling next.

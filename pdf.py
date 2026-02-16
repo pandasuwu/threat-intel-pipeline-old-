@@ -1,4 +1,8 @@
-"""early PDF -> text dump using pdfplumber. crude. just for exploring."""
+"""early PDF -> text dump using pdfplumber. crude. just for exploring.
+
+NOTE: pdfplumber loses structure on tables in the threat reports. Pivoting to
+docling — see parse/parse.py.
+"""
 import pdfplumber
 import sys
 
@@ -10,6 +14,3 @@ def dump(path):
 
 if __name__ == "__main__":
     dump(sys.argv[1])
-
-# TODO: pipe extracted text -> gemini for summary
-# def summarize_with_gemini(text): ...
