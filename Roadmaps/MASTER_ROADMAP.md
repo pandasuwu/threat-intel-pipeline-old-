@@ -26,3 +26,4 @@ WIP planning doc.
 ## decisions log
 
 - 2026-02-16: pdfplumber drops table structure. trying docling next.
+- 2026-02-20: 9/9 threat reports parsed (AT&T v5/v6/v8, ENISA 23/24/25, MS 23/24/25)
