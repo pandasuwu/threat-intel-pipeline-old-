@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>phase 1 report</title></head>
+<body>
+<h1>Phase 1 — ingestion</h1>
+<ul>
+  <li>cvelistV5 mirror normalized to single jsonl (323,647 records)</li>
+  <li>9 threat landscape PDFs parsed via docling (AT&amp;T v5/v6/v8, ENISA 2023/24/25, MS 2023/24/25)</li>
+  <li>schema profiled: cve_id, description, cwe, references, dates</li>
+</ul>
+<h2>known gaps</h2>
+<ul>
+  <li>parsed PDF chunks not yet embedded into qdrant</li>
+  <li>some pages still in failed_pdfs/ (need rerun)</li>
+</ul>
+</body></html>
