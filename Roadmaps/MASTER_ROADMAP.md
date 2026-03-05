@@ -32,3 +32,7 @@ WIP planning doc.
 
 - p1: DONE (323,647 CVE records normalized, 9 PDFs parsed)
 - p2: starting on paramananta
+
+## external deps
+
+- CyNER (AI4Sec/cyner-xlm-roberta-large) — domain NER model, gitignored, cloned locally
