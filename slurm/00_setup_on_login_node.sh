@@ -5,6 +5,7 @@ import os
 
 script = """\
 #!/usr/bin/env bash
+# requires: nltk punkt corpus (downloaded below)
 set -euo pipefail
 
 HOME_DIR="/home/${USER}"
