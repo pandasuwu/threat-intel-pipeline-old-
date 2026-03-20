@@ -36,3 +36,4 @@ WIP planning doc.
 ## external deps
 
 - CyNER (AI4Sec/cyner-xlm-roberta-large) — domain NER model, gitignored, cloned locally
+- 2026-03-20: NER over CVE corpus deferred. NER stays for PDF chunks.
