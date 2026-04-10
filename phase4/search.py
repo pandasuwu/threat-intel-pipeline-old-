@@ -142,7 +142,7 @@ class HybridSearchEngine:
 
         # Vector search
         query_vec = self._embed(query)
-        qdrant_response = self.qdrant.search(
+        qdrant_response = self.qdrant.query_points(
             collection_name=COLLECTION_CVE,
             query=query_vec,
             query_filter=qdrant_filter,
