@@ -5,7 +5,7 @@ Drop-in replacement for the Gemini direct API version.
 Install: pip install openai   (OpenRouter uses OpenAI-compatible API)
 Env:     OPENROUTER_API_KEY=your_key
 
-Model: google/gemini-2.0-flash-lite-001  (change to any OpenRouter model string)
+Model: google/gemini-2.0-flash-001  (change to any OpenRouter model string)
 """
 
 import os
@@ -26,7 +26,7 @@ def _get_client() -> OpenAI:
         if not api_key:
             raise RuntimeError("OPENROUTER_API_KEY env var not set")
         _client = OpenAI(
-            base_url="https://gemini-2.0-flash.ai/api/v1",
+            base_url="https://openrouter.ai/api/v1",
             api_key=api_key,
         )
     return _client
