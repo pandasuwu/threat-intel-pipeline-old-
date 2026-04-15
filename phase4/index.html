@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNICC Threat Intelligence Investigator</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
+<style>
+:root {
+  --bg:        #f4f1ee;
+  --surface:   #faf9f7;
+  --card:      #ffffff;
+  --border:    #e2ddd8;
+  --border2:   #cfc9c2;
+  --text:      #2d2926;
+  --muted:     #8a817a;
+  --mono:      'IBM Plex Mono', monospace;
+  --sans:      'DM Sans', sans-serif;
+
+  /* Pastel accents */
+  --teal:      #5b9ea0;
+  --teal-bg:   #e8f4f4;
+  --rose:      #c0737a;
+  --rose-bg:   #faeaea;
+  --amber:     #b5813b;
+  --amber-bg:  #fdf3e3;
+  --violet:    #7b6fa0;
+  --violet-bg: #f0eef8;
+  --sage:      #6b8f71;
+  --sage-bg:   #edf4ee;
+  --slate:     #607080;
+  --slate-bg:  #edf0f4;
+
+  --radius: 6px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 4px 12px rgba(0,0,0,0.04);
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.05);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 13px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Header ── */
+header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 20px;
+  height: 52px;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo-box {
+  width: 30px; height: 30px;
+  background: var(--teal);
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
+}
+
+.logo-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+
+.logo-sub {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.header-pills {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+  align-items: center;
+}
+
+.pill {
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: var(--teal-bg);
+  color: var(--teal);
+  font-weight: 500;
+  border: 1px solid rgba(91,158,160,0.2);
+}
+
+.status-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--sage);
+  box-shadow: 0 0 0 2px var(--sage-bg);
+  animation: pulse 3s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+/* ── Layout ── */
+.workspace {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── Left Panel ── */
+.left-panel {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.query-section {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--card);
+  flex-shrink: 0;
+}
+
+.section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 10px 12px;
+  resize: none;
+  outline: none;
+  border-radius: var(--radius);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  height: 64px;
+  line-height: 1.5;
+}
+textarea:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(91,158,160,0.12);
+}
+textarea::placeholder { color: var(--muted); }
+
+.query-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0 8px;
+  height: 32px;
+}
+
+.filter-group label {
+  font-size: 10px;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.filter-group input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text);
+  width: 52px;
+}
+
+.btn-investigate {
+  margin-left: auto;
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 0 16px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s, transform 0.1s;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.btn-investigate:hover { background: #4a8c8e; }
+.btn-investigate:active { transform: scale(0.98); }
+.btn-investigate:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Results panel ── */
+.results-panel {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.results-panel::-webkit-scrollbar { width: 4px; }
+.results-panel::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* ── Narrative ── */
+.narrative-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: var(--shadow);
+  display: none;
+  animation: fadeUp 0.3s ease;
+}
+.narrative-card.visible { display: block; }
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(6px) }
+  to   { opacity:1; transform:none }
+}
+
+.confidence-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.confidence-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+  letter-spacing: 0.08em;
+}
+.confidence-badge.HIGH   { background: var(--sage-bg);   color: var(--sage);   border: 1px solid rgba(107,143,113,0.25); }
+.confidence-badge.MEDIUM { background: var(--amber-bg);  color: var(--amber);  border: 1px solid rgba(181,129,59,0.25); }
+.confidence-badge.LOW    { background: var(--rose-bg);   color: var(--rose);   border: 1px solid rgba(192,115,122,0.25); }
+
+.narrative-text {
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.sources-line {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  font-size: 10.5px;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+
+/* ── CVE section ── */
+.cve-section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-transform: uppercase;
+  padding: 0 2px;
+}
+
+.cve-list { display: flex; flex-direction: column; gap: 6px; }
+
+.cve-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-shadow: var(--shadow);
+  animation: fadeUp 0.3s ease;
+}
+.cve-card:hover { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(91,158,160,0.1); }
+.cve-card.selected { border-color: var(--teal); background: var(--teal-bg); box-shadow: 0 0 0 3px rgba(91,158,160,0.12); }
+
+.cve-top {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 5px;
+  flex-wrap: wrap;
+}
+
+.cve-id {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--teal);
+}
+
+.sev-badge {
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+  letter-spacing: 0.06em;
+}
+.sev-badge.CRITICAL { background: var(--rose-bg);   color: var(--rose);   border: 1px solid rgba(192,115,122,0.25); }
+.sev-badge.HIGH     { background: var(--amber-bg);  color: var(--amber);  border: 1px solid rgba(181,129,59,0.25); }
+.sev-badge.MEDIUM   { background: var(--violet-bg); color: var(--violet); border: 1px solid rgba(123,111,160,0.25); }
+.sev-badge.LOW      { background: var(--slate-bg);  color: var(--slate);  border: 1px solid rgba(96,112,128,0.2); }
+.sev-badge.UNKNOWN  { background: var(--bg);        color: var(--muted);  border: 1px solid var(--border); }
+
+.cvss-score {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.cve-desc {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.5;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 7px;
+}
+
+.tech-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--teal-bg);
+  color: var(--teal);
+  border: 1px solid rgba(91,158,160,0.2);
+  cursor: pointer;
+  transition: background 0.15s;
+  font-weight: 500;
+}
+.tech-tag:hover { background: rgba(91,158,160,0.2); }
+
+/* ── Right panel ── */
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.graph-header {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.graph-context-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.graph-input {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  padding: 5px 10px;
+  outline: none;
+  border-radius: var(--radius);
+  transition: border-color 0.2s;
+}
+.graph-input:focus { border-color: var(--teal); }
+.graph-input::placeholder { color: var(--muted); }
+
+.graph-btn {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: all 0.15s;
+}
+.graph-btn:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-bg); }
+
+/* ── Graph body ── */
+.graph-body {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+#graph-container {
+  width: 100%;
+  height: 100%;
+}
+
+.graph-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.graph-empty-icon {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.graph-empty-text {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ── Graph info bar (bottom) ── */
+.graph-info-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(250,249,247,0.92);
+  border-top: 1px solid var(--border);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 11px;
+  color: var(--muted);
+  backdrop-filter: blur(4px);
+  display: none;
+}
+.graph-info-bar.visible { display: flex; }
+
+.graph-stat { display: flex; align-items: center; gap: 5px; }
+
+.legend-items {
+  display: flex;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 10.5px; }
+
+.legend-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1.5px solid rgba(0,0,0,0.1);
+}
+
+/* ── Tooltip ── */
+.vis-tooltip {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+  color: var(--text) !important;
+  font-family: var(--sans) !important;
+  font-size: 12px !important;
+  padding: 8px 12px !important;
+  box-shadow: var(--shadow-md) !important;
+  max-width: 280px !important;
+  line-height: 1.5 !important;
+  white-space: pre-wrap !important; 
+  overflow-wrap: break-word !important;
+}
+
+/* ── Error + spinner ── */
+/* ── Error + spinner ── */
+.error-box {
+  background: var(--rose-bg);
+  border: 1px solid rgba(192,115,122,0.25);
+  color: var(--rose);
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  font-size: 12px;
+  display: none;
+}
+.error-box.visible { display: block; }
+
+.spinner {
+  display: inline-block;
+  width: 11px; height: 11px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+@keyframes spin { to{transform:rotate(360deg)} }
+
+.placeholder-hint {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.8;
+  padding: 4px 2px;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-box">UN</div>
+    <div>
+      <div class="logo-text">Threat Intelligence Investigator</div>
+      <div class="logo-sub">UNICC · IITGN Capstone · ATT&CK + CVE Knowledge Graph</div>
+    </div>
+  </div>
+  <div class="header-pills">
+    <span class="pill">323k CVEs</span>
+    <span class="pill">249k vectors</span>
+    <span class="pill">MITRE ATT&CK</span>
+    <div class="status-dot" title="API online"></div>
+  </div>
+</header>
+
+<div class="workspace">
+
+  <!-- Left panel -->
+  <div class="left-panel">
+    <div class="query-section">
+      <div class="section-label">Investigative Query</div>
+      <textarea id="query-input"
+        placeholder="CVE-2021-44228  ·  ransomware targeting RDP brute force  ·  T1190 exploitation"></textarea>
+      <div class="query-row">
+        <div class="filter-group">
+          <label>MIN CVSS</label>
+          <input id="min-cvss" type="number" min="0" max="10" step="0.1" placeholder="0–10">
+        </div>
+        <div class="filter-group">
+          <label>TOP-K</label>
+          <input id="top-k" type="number" min="1" max="50" value="10" style="width:36px">
+        </div>
+        <button class="btn-investigate" id="investigate-btn" onclick="investigate()">
+          <span id="btn-icon">▶</span> Investigate
+        </button>
+      </div>
+    </div>
+
+    <div class="results-panel" id="results-panel">
+      <div class="placeholder-hint" id="placeholder-hint">
+        Enter a free-text query, CVE ID, or ATT&CK technique above.<br>
+        Results include a narrative, confidence rating, and top CVE matches.<br>
+        Click any CVE card to visualize its ATT&CK graph context.
+      </div>
+      <div class="error-box" id="error-box"></div>
+
+      <div class="narrative-card" id="narrative-card">
+        <div class="confidence-row">
+          <div id="confidence-badge" class="confidence-badge"></div>
+          <span id="n-retrieved" style="font-size:10.5px;color:var(--muted);margin-left:auto;font-family:var(--mono)"></span>
+        </div>
+        <div class="narrative-text" id="narrative-text"></div>
+        <div class="sources-line" id="sources-line"></div>
+      </div>
+
+      <div class="cve-section-label" id="cve-section-label" style="display:none">Top CVE Matches</div>
+      <div class="cve-list" id="cve-list"></div>
+    </div>
+  </div>
+
+  <!-- Right panel -->
+  <div class="right-panel">
+    <div class="graph-header">
+      <span class="graph-context-label">Graph Context</span>
+      <input class="graph-input" id="graph-input"
+        placeholder="CVE-XXXX-XXXXX · T1190 · entity name — Enter to explore">
+      <button class="graph-btn" onclick="loadEntityGraph()">Explore</button>
+      <button class="graph-btn" onclick="clearGraph()">Clear</button>
+    </div>
+
+    <div class="graph-body">
+      <div id="graph-container"></div>
+      <div class="graph-empty" id="graph-empty">
+        <div class="graph-empty-icon">⬡</div>
+        <div class="graph-empty-text">
+          Click a CVE card or ATT&CK tag<br>to load graph context
+        </div>
+      </div>
+      <div class="graph-info-bar" id="graph-info-bar">
+        <div class="graph-stat" id="graph-stat">—</div>
+        <div class="legend-items">
+          <div class="legend-item"><div class="legend-dot" style="background:#5b9ea0"></div>Vulnerability</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#c0737a"></div>Technique</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#b5813b"></div>Group</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#7b6fa0"></div>Software</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#6b8f71"></div>Tactic</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Config ──────────────────────────────────────────────────────────
+const API_BASE   = 'http://localhost:8000';
+const NEO4J_HTTP = 'http://localhost:7474';
+const NEO4J_AUTH = 'neo4j:password'; // ← update your password here
+
+const NODE_STYLE = {
+  Vulnerability: { bg:'#e8f4f4', border:'#5b9ea0', font:'#2d6e70', size:18 },
+  Technique:     { bg:'#faeaea', border:'#c0737a', font:'#8a3a40', size:22 },
+  Group:         { bg:'#fdf3e3', border:'#b5813b', font:'#7a5520', size:20 },
+  Software:      { bg:'#f0eef8', border:'#7b6fa0', font:'#4a3f70', size:16 },
+  Tactic:        { bg:'#edf4ee', border:'#6b8f71', font:'#3a5e40', size:14 },
+  Default:       { bg:'#f4f1ee', border:'#cfc9c2', font:'#2d2926', size:14 },
+};
+
+let network = null;
+
+// ── Neo4j HTTP ───────────────────────────────────────────────────────
+async function neo4jQuery(cypher) {
+  const res = await fetch(`${NEO4J_HTTP}/db/neo4j/tx/commit`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(NEO4J_AUTH),
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify({ statements:[{ statement: cypher, resultDataContents:['graph'] }] }),
+  });
+  if (!res.ok) throw new Error(`Neo4j ${res.status}: check that Neo4j HTTP is running on port 7474`);
+  const data = await res.json();
+  if (data.errors?.length) throw new Error(data.errors[0].message);
+  return data.results[0]?.data || [];
+}
+
+// ── Build vis datasets ───────────────────────────────────────────────
+function buildDatasets(rows) {
+  const nodesMap = new Map();
+  const edgesMap = new Map();
+
+  for (const row of rows) {
+    const g = row.graph;
+    for (const n of (g.nodes||[])) {
+      if (nodesMap.has(n.id)) continue;
+      const label = n.labels[0] || 'Default';
+      const s = NODE_STYLE[label] || NODE_STYLE.Default;
+      const p = n.properties;
+      const display = p.cve_id || p.attack_id || p.name || label;
+
+      // Plain-text tooltip
+      const tipLines = [`[${label}]`];
+      if (p.cve_id)     tipLines.push(`CVE: ${p.cve_id}`);
+      if (p.attack_id)  tipLines.push(`ATT&CK: ${p.attack_id}`);
+      if (p.name)       tipLines.push(`Name: ${p.name}`);
+      if (p.cvss_score) tipLines.push(`CVSS: ${p.cvss_score}`);
+      if (p.description) tipLines.push(`\n${p.description}`);
+
+      nodesMap.set(n.id, {
+        id: n.id,
+        label: display,
+        title: tipLines.join('\n'),   // plain text — no HTML
+        color: {
+          background: s.bg,
+          border: s.border,
+          highlight: { background: s.bg, border: '#2d2926' },
+          hover: { background: s.bg, border: '#2d2926' },
+        },
+        font: { color: s.font, size: 11, face: 'DM Sans', strokeWidth: 0 },
+        size: s.size,
+        borderWidth: 1.5,
+        shape: 'dot',
+        shadow: { enabled: true, color: 'rgba(0,0,0,0.08)', size: 6, x:0, y:2 },
+      });
+    }
+    for (const e of (g.relationships||[])) {
+      if (edgesMap.has(e.id)) continue;
+      edgesMap.set(e.id, {
+        id: e.id,
+        from: e.startNode,
+        to: e.endNode,
+        label: e.type.replace(/_/g,' '),
+        color: { color:'#cfc9c2', highlight:'#5b9ea0', hover:'#5b9ea0' },
+        font: { color:'#8a817a', size:9, face:'IBM Plex Mono', align:'middle', strokeWidth:0 },
+        arrows: { to:{ enabled:true, scaleFactor:0.45 } },
+        width: 1.2,
+        smooth: { type:'dynamic' },
+        selectionWidth: 2,
+      });
+    }
+  }
+  return {
+    nodes: new vis.DataSet([...nodesMap.values()]),
+    edges: new vis.DataSet([...edgesMap.values()]),
+  };
+}
+
+// ── Render graph ─────────────────────────────────────────────────────
+async function renderGraph(cypher, label) {
+  document.getElementById('graph-empty').style.display = 'none';
+  document.getElementById('graph-stat').textContent = 'Loading…';
+  document.getElementById('graph-info-bar').classList.add('visible');
+
+  try {
+    const rows = await neo4jQuery(cypher);
+    if (!rows.length) {
+      document.getElementById('graph-stat').textContent = 'No data returned';
+      return;
+    }
+    const { nodes, edges } = buildDatasets(rows);
+    document.getElementById('graph-stat').textContent =
+      `${label || ''} · ${nodes.length} nodes · ${edges.length} edges`;
+
+    const container = document.getElementById('graph-container');
+
+    if (network) { network.destroy(); network = null; }
+
+    network = new vis.Network(container, { nodes, edges }, {
+      physics: {
+        solver: 'barnesHut',
+        barnesHut: {
+          gravitationalConstant: -10000,
+          centralGravity: 0.15,
+          springLength: 140,
+          springConstant: 0.04,
+          damping: 0.12,
+          avoidOverlap: 0.8,
+        },
+        stabilization: { iterations: 250, updateInterval: 10 },
+      },
+      interaction: {
+        hover: true,
+        tooltipDelay: 100,
+        zoomView: true,
+        dragNodes: true,
+        navigationButtons: false,
+      },
+      nodes: { borderWidth: 1.5 },
+      edges: { smooth: { type: 'dynamic' } },
+    });
+
+    network.on('stabilizationIterationsDone', () => {
+      network.setOptions({ physics:{ enabled:false } });
+    });
+
+  } catch(e) {
+    document.getElementById('graph-stat').textContent = `Error: ${e.message}`;
+    console.error(e);
+  }
+}
+
+// ── Graph query builders ─────────────────────────────────────────────
+function loadCVEGraph(cveId) {
+  document.getElementById('graph-input').value = cveId;
+  renderGraph(`
+    MATCH (v:Vulnerability {cve_id: '${cveId}'})
+    OPTIONAL MATCH (v)-[r1:PATTERN_OF]->(t:Technique)
+    OPTIONAL MATCH (t)-[r2:ENABLES_TACTIC]->(tac:Tactic)
+    OPTIONAL MATCH (g:Group)-[r3:USES]->(t)
+    OPTIONAL MATCH (s:Software)-[r4:USES]->(t)
+    RETURN v, r1, t, r2, tac, g, r3, s, r4
+    LIMIT 80
+  `, cveId);
+}
+
+function pivotTechnique(attackId, e) {
+  if (e) e.stopPropagation();
+  document.getElementById('graph-input').value = attackId;
+  renderGraph(`
+    MATCH (t:Technique {attack_id: '${attackId}'})
+    OPTIONAL MATCH (t)-[r1:ENABLES_TACTIC]->(tac:Tactic)
+    OPTIONAL MATCH (g:Group)-[r2:USES]->(t)
+    OPTIONAL MATCH (s:Software)-[r3:USES]->(t)
+    OPTIONAL MATCH (v:Vulnerability)-[r4:PATTERN_OF]->(t)
+    RETURN t, r1, tac, g, r2, s, r3, v, r4
+    LIMIT 80
+  `, attackId);
+}
+
+function loadEntityGraph() {
+  const raw = document.getElementById('graph-input').value.trim();
+  if (!raw) return;
+  if (/^CVE-\d{4}-\d+$/i.test(raw)) { loadCVEGraph(raw.toUpperCase()); return; }
+  if (/^T\d{4}(\.\d{3})?$/i.test(raw)) { pivotTechnique(raw.toUpperCase(), null); return; }
+  renderGraph(`
+    MATCH (n) WHERE toLower(n.name) CONTAINS toLower('${raw.replace(/'/g,"\\'")}')
+    OPTIONAL MATCH (n)-[r]->(m)
+    RETURN n, r, m LIMIT 60
+  `, `"${raw}"`);
+}
+
+document.getElementById('graph-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') loadEntityGraph();
+});
+
+function clearGraph() {
+  if (network) { network.destroy(); network = null; }
+  document.getElementById('graph-container').innerHTML = '';
+  document.getElementById('graph-empty').style.display = 'flex';
+  document.getElementById('graph-info-bar').classList.remove('visible');
+  document.getElementById('graph-input').value = '';
+}
+
+// ── Investigate ───────────────────────────────────────────────────────
+async function investigate() {
+  const query   = document.getElementById('query-input').value.trim();
+  const minCvss = document.getElementById('min-cvss').value;
+  const topK    = parseInt(document.getElementById('top-k').value) || 10;
+  if (!query) return;
+
+  const btn = document.getElementById('investigate-btn');
+  btn.disabled = true;
+  document.getElementById('btn-icon').innerHTML = '<span class="spinner"></span>';
+
+  document.getElementById('error-box').classList.remove('visible');
+  document.getElementById('narrative-card').classList.remove('visible');
+  document.getElementById('cve-section-label').style.display = 'none';
+  document.getElementById('cve-list').innerHTML = '';
+  document.getElementById('placeholder-hint').style.display = 'none';
+
+  const body = { query, top_k: topK };
+  if (minCvss) body.min_cvss = parseFloat(minCvss);
+
+  try {
+    const res = await fetch(`${API_BASE}/investigate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || `HTTP ${res.status}`);
+    }
+    const data = await res.json();
+    renderNarrative(data);
+    renderCVEs(data.top_cves || []);
+  } catch(e) {
+    const eb = document.getElementById('error-box');
+    eb.textContent = `⚠ ${e.message}`;
+    eb.classList.add('visible');
+    document.getElementById('placeholder-hint').style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    document.getElementById('btn-icon').textContent = '▶';
+  }
+}
+
+function renderNarrative(data) {
+  const badge = document.getElementById('confidence-badge');
+  badge.className = `confidence-badge ${data.confidence}`;
+  badge.textContent = `● ${data.confidence} CONFIDENCE`;
+  document.getElementById('n-retrieved').textContent = `${data.n_cves_retrieved} CVEs retrieved`;
+  document.getElementById('narrative-text').textContent = data.narrative;
+  const src = (data.sources||[]).join(' · ');
+  document.getElementById('sources-line').textContent = src ? `Sources: ${src}` : '';
+  document.getElementById('narrative-card').classList.add('visible');
+}
+
+function renderCVEs(cves) {
+  const list = document.getElementById('cve-list');
+  list.innerHTML = '';
+  if (!cves.length) return;
+  document.getElementById('cve-section-label').style.display = 'block';
+
+  cves.forEach(cve => {
+    const card = document.createElement('div');
+    card.className = 'cve-card';
+    const sev   = cve.severity || 'UNKNOWN';
+    const score = cve.cvss_score != null ? cve.cvss_score.toFixed(1) : 'N/A';
+    const tags  = (cve.techniques||[])
+      .filter(t => t.attack_id)
+      .map(t => `<span class="tech-tag" onclick="pivotTechnique('${t.attack_id}',event)">${t.attack_id}</span>`)
+      .join('');
+
+    card.innerHTML = `
+      <div class="cve-top">
+        <span class="cve-id">${cve.cve_id}</span>
+        <span class="sev-badge ${sev}">${sev}</span>
+        <span class="cvss-score">CVSS ${score}</span>
+      </div>
+      <div class="cve-desc">${cve.description || '—'}</div>
+      ${tags ? `<div class="tech-tags">${tags}</div>` : ''}
+    `;
+
+    card.addEventListener('click', e => {
+      if (e.target.classList.contains('tech-tag')) return;
+      document.querySelectorAll('.cve-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      loadCVEGraph(cve.cve_id);
+    });
+    list.appendChild(card);
+  });
+}
+
+document.getElementById('query-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); investigate(); }
+});
+</script>
+</body>
+</html>
