@@ -1,0 +1,1004 @@
+{
+  "generated_at": "2026-04-16T18:09:59Z",
+  "total_queries": 50,
+  "successful": 50,
+  "results": [
+    {
+      "id": 0,
+      "label": "Log4Shell \u2014 Log4j RCE",
+      "query": "CVE-2021-44228",
+      "hit_endpoint": "cve",
+      "latency_ms": 38.14589600006002,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1190",
+        "T1059"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [
+        "CVE-2021-44228"
+      ],
+      "cve_misses": [],
+      "manual_minutes": 15
+    },
+    {
+      "id": 1,
+      "label": "ProxyLogon \u2014 Exchange SSRF+RCE",
+      "query": "CVE-2021-26855",
+      "hit_endpoint": "cve",
+      "latency_ms": 14.137152000330389,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [
+        "CVE-2021-26855"
+      ],
+      "cve_misses": [],
+      "manual_minutes": 20
+    },
+    {
+      "id": 2,
+      "label": "EternalBlue \u2014 SMB RCE",
+      "query": "CVE-2017-0144",
+      "hit_endpoint": "cve",
+      "latency_ms": 16.495796000526752,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [
+        "CVE-2017-0144"
+      ],
+      "cve_misses": [],
+      "manual_minutes": 20
+    },
+    {
+      "id": 3,
+      "label": "Follina \u2014 MSDT RCE",
+      "query": "CVE-2022-30190",
+      "hit_endpoint": "cve",
+      "latency_ms": 14.280892002716428,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [
+        "CVE-2022-30190"
+      ],
+      "cve_misses": [],
+      "manual_minutes": 15
+    },
+    {
+      "id": 4,
+      "label": "Log4Shell sibling \u2014 Log4j DoS/RCE",
+      "query": "CVE-2021-45046",
+      "hit_endpoint": "cve",
+      "latency_ms": 19.21872100137989,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [
+        "CVE-2021-45046"
+      ],
+      "cve_misses": [],
+      "manual_minutes": 10
+    },
+    {
+      "id": 5,
+      "label": "BlueKeep \u2014 RDP pre-auth RCE",
+      "query": "CVE-2019-0708",
+      "hit_endpoint": "cve",
+      "latency_ms": 16.21881699975347,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [
+        "CVE-2019-0708"
+      ],
+      "cve_misses": [],
+      "manual_minutes": 15
+    },
+    {
+      "id": 6,
+      "label": "Citrix ADC \u2014 CVE-2019-19781",
+      "query": "CVE-2019-19781",
+      "hit_endpoint": "cve",
+      "latency_ms": 41.899279996869154,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [
+        "CVE-2019-19781"
+      ],
+      "cve_misses": [],
+      "manual_minutes": 15
+    },
+    {
+      "id": 7,
+      "label": "Confluence OGNL injection",
+      "query": "CVE-2021-26084",
+      "hit_endpoint": "cve",
+      "latency_ms": 17.603920001420192,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [
+        "CVE-2021-26084"
+      ],
+      "cve_misses": [],
+      "manual_minutes": 12
+    },
+    {
+      "id": 8,
+      "label": "Spring4Shell \u2014 Spring Framework RCE",
+      "query": "CVE-2022-22965",
+      "hit_endpoint": "cve",
+      "latency_ms": 16.217655000218656,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [
+        "CVE-2022-22965"
+      ],
+      "cve_misses": [],
+      "manual_minutes": 12
+    },
+    {
+      "id": 9,
+      "label": "MOVEit Transfer SQL injection",
+      "query": "CVE-2023-34362",
+      "hit_endpoint": "cve",
+      "latency_ms": 22.306147999188397,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1190"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [
+        "CVE-2023-34362"
+      ],
+      "cve_misses": [],
+      "manual_minutes": 20
+    },
+    {
+      "id": 10,
+      "label": "T1190 \u2014 Exploit Public-Facing Application",
+      "query": "T1190",
+      "hit_endpoint": "technique",
+      "latency_ms": 28.539973001898034,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1190"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 25
+    },
+    {
+      "id": 11,
+      "label": "T1133 \u2014 External Remote Services",
+      "query": "T1133",
+      "hit_endpoint": "technique",
+      "latency_ms": 17.984562000492588,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1133"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 20
+    },
+    {
+      "id": 12,
+      "label": "T1486 \u2014 Data Encrypted for Impact",
+      "query": "T1486",
+      "hit_endpoint": "technique",
+      "latency_ms": 16.11688699995284,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1486"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 20
+    },
+    {
+      "id": 13,
+      "label": "T1195 \u2014 Supply Chain Compromise",
+      "query": "T1195",
+      "hit_endpoint": "technique",
+      "latency_ms": 14.86600600037491,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1195"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 30
+    },
+    {
+      "id": 14,
+      "label": "T1566 \u2014 Phishing",
+      "query": "T1566",
+      "hit_endpoint": "technique",
+      "latency_ms": 15.491015998122748,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1566"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 20
+    },
+    {
+      "id": 15,
+      "label": "T1078 \u2014 Valid Accounts",
+      "query": "T1078",
+      "hit_endpoint": "technique",
+      "latency_ms": 20.779962000233354,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1078"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 20
+    },
+    {
+      "id": 16,
+      "label": "T1059 \u2014 Command and Scripting Interpreter",
+      "query": "T1059",
+      "hit_endpoint": "technique",
+      "latency_ms": 19.216857002902543,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1059"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 20
+    },
+    {
+      "id": 17,
+      "label": "T1110 \u2014 Brute Force",
+      "query": "T1110",
+      "hit_endpoint": "technique",
+      "latency_ms": 14.62326199907693,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1110"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 15
+    },
+    {
+      "id": 18,
+      "label": "T1068 \u2014 Exploitation for Privilege Escalation",
+      "query": "T1068",
+      "hit_endpoint": "technique",
+      "latency_ms": 17.267539999011206,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1068"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 20
+    },
+    {
+      "id": 19,
+      "label": "T1003 \u2014 OS Credential Dumping",
+      "query": "T1003",
+      "hit_endpoint": "technique",
+      "latency_ms": 16.214439001487335,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1003"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 20
+    },
+    {
+      "id": 20,
+      "label": "APT29 full TTP profile",
+      "query": "APT29 Cozy Bear techniques initial access persistence exfiltration",
+      "hit_endpoint": "investigate",
+      "latency_ms": 9948.21655099804,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1078"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [
+        "APT29"
+      ],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 50
+    },
+    {
+      "id": 21,
+      "label": "APT28 espionage campaigns",
+      "query": "APT28 Fancy Bear credential phishing NATO government targets",
+      "hit_endpoint": "investigate",
+      "latency_ms": 8545.811586001946,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [
+        "APT28"
+      ],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 45
+    },
+    {
+      "id": 22,
+      "label": "Lazarus Group DPRK attacks",
+      "query": "Lazarus Group North Korea financial sector cryptocurrency theft",
+      "hit_endpoint": "investigate",
+      "latency_ms": 8311.793085998943,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [
+        "Lazarus"
+      ],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 50
+    },
+    {
+      "id": 23,
+      "label": "Cl0p ransomware gang",
+      "query": "Cl0p ransomware file transfer exploitation mass extortion",
+      "hit_endpoint": "investigate",
+      "latency_ms": 5963.033334999636,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [
+        "Cl0p"
+      ],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 40
+    },
+    {
+      "id": 24,
+      "label": "HAFNIUM Exchange exploitation",
+      "query": "HAFNIUM Microsoft Exchange ProxyLogon webshell deployment",
+      "hit_endpoint": "investigate",
+      "latency_ms": 15956.429644000309,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1190"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [
+        "HAFNIUM"
+      ],
+      "actor_misses": [],
+      "cve_recall": 0.0,
+      "cve_hits": [],
+      "cve_misses": [
+        "CVE-2021-26855"
+      ],
+      "manual_minutes": 35
+    },
+    {
+      "id": 25,
+      "label": "APT41 dual espionage + crime",
+      "query": "APT41 Winnti supply chain compromise software trojanization",
+      "hit_endpoint": "investigate",
+      "latency_ms": 900.8224390017858,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1059"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [
+        "APT41"
+      ],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 45
+    },
+    {
+      "id": 26,
+      "label": "Sandworm destructive attacks",
+      "query": "Sandworm NotPetya destructive wiper Ukraine infrastructure",
+      "hit_endpoint": "investigate",
+      "latency_ms": 6358.941010999843,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [
+        "Sandworm"
+      ],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 50
+    },
+    {
+      "id": 27,
+      "label": "FIN7 financial sector intrusions",
+      "query": "FIN7 Carbanak POS malware retail financial spearphishing",
+      "hit_endpoint": "investigate",
+      "latency_ms": 42176.36220300119,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1059"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [
+        "FIN7"
+      ],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 40
+    },
+    {
+      "id": 28,
+      "label": "Scattered Spider social engineering",
+      "query": "Scattered Spider UNC3944 SIM swapping MFA bypass helpdesk",
+      "hit_endpoint": "investigate",
+      "latency_ms": 18074.70762700177,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1078"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [
+        "Scattered Spider"
+      ],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 35
+    },
+    {
+      "id": 29,
+      "label": "Volt Typhoon critical infrastructure",
+      "query": "Volt Typhoon living off the land LOTL critical infrastructure US",
+      "hit_endpoint": "investigate",
+      "latency_ms": 1078.975991000334,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1078"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [
+        "Volt Typhoon"
+      ],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 45
+    },
+    {
+      "id": 30,
+      "label": "Analyst: ransomware initial access vectors 2023",
+      "query": "what vulnerabilities are ransomware groups using for initial access in 2023",
+      "hit_endpoint": "investigate",
+      "latency_ms": 25448.831615001836,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 60
+    },
+    {
+      "id": 31,
+      "label": "Analyst: healthcare sector threats",
+      "query": "cybersecurity threats targeting hospitals and healthcare providers",
+      "hit_endpoint": "investigate",
+      "latency_ms": 52928.55555400092,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 45
+    },
+    {
+      "id": 32,
+      "label": "Analyst: stolen credentials dark web",
+      "query": "compromised credentials sold on dark web used for corporate intrusions",
+      "hit_endpoint": "investigate",
+      "latency_ms": 5748.981510998419,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 35
+    },
+    {
+      "id": 33,
+      "label": "Analyst: VPN appliance exploits 2024",
+      "query": "VPN appliance vulnerabilities exploited Ivanti Fortinet Pulse Secure",
+      "hit_endpoint": "search",
+      "latency_ms": 20.130608001636574,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1190"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 30
+    },
+    {
+      "id": 34,
+      "label": "Analyst: double extortion ransomware data leak",
+      "query": "ransomware operators exfiltrating data before encryption double extortion leak site",
+      "hit_endpoint": "investigate",
+      "latency_ms": 1720.3099770013068,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 40
+    },
+    {
+      "id": 35,
+      "label": "Analyst: MFA bypass techniques",
+      "query": "attackers bypassing multi-factor authentication MFA fatigue push notification",
+      "hit_endpoint": "investigate",
+      "latency_ms": 53477.40122200048,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 30
+    },
+    {
+      "id": 36,
+      "label": "Analyst: living off the land binaries",
+      "query": "attackers using LOLBins living off the land certutil mshta wmic to evade detection",
+      "hit_endpoint": "investigate",
+      "latency_ms": 2007.851557998947,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1059"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 35
+    },
+    {
+      "id": 37,
+      "label": "Analyst: cloud misconfiguration attacks",
+      "query": "S3 bucket misconfiguration exposed credentials cloud storage data breach",
+      "hit_endpoint": "investigate",
+      "latency_ms": 6330.074179000803,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 30
+    },
+    {
+      "id": 38,
+      "label": "Analyst: BEC wire transfer fraud",
+      "query": "business email compromise CEO fraud wire transfer financial loss invoice manipulation",
+      "hit_endpoint": "investigate",
+      "latency_ms": 37793.42306699982,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 40
+    },
+    {
+      "id": 39,
+      "label": "Analyst: PrintNightmare Windows privilege escalation",
+      "query": "Windows Print Spooler privilege escalation remote code execution patch Tuesday",
+      "hit_endpoint": "search",
+      "latency_ms": 30.908264001482166,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1068"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 20
+    },
+    {
+      "id": 40,
+      "label": "SolarWinds Orion supply chain SUNBURST",
+      "query": "SolarWinds Orion SUNBURST backdoor supply chain nation state espionage",
+      "hit_endpoint": "investigate",
+      "latency_ms": 5894.613000997197,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 60
+    },
+    {
+      "id": 41,
+      "label": "Cobalt Strike post-exploitation chain",
+      "query": "Cobalt Strike beacon C2 lateral movement credential dumping ransomware deployment",
+      "hit_endpoint": "investigate",
+      "latency_ms": 43864.039701002184,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1059"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 40
+    },
+    {
+      "id": 42,
+      "label": "Kaseya VSA ransomware supply chain",
+      "query": "Kaseya VSA REvil ransomware MSP supply chain July 2021",
+      "hit_endpoint": "investigate",
+      "latency_ms": 4816.877612000098,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [
+        "REvil"
+      ],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 40
+    },
+    {
+      "id": 43,
+      "label": "Colonial Pipeline ransomware attack",
+      "query": "Colonial Pipeline DarkSide ransomware VPN credential OT disruption",
+      "hit_endpoint": "investigate",
+      "latency_ms": 6295.545484001195,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [
+        "DarkSide"
+      ],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 45
+    },
+    {
+      "id": 44,
+      "label": "Operation Cloud Hopper MSP compromise",
+      "query": "APT10 Cloud Hopper managed service provider MSP espionage data theft",
+      "hit_endpoint": "investigate",
+      "latency_ms": 7998.9969359994575,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [
+        "APT10"
+      ],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 50
+    },
+    {
+      "id": 45,
+      "label": "NotPetya destructive wiper campaign",
+      "query": "NotPetya wiper Ukraine 2017 EternalBlue Mimikatz destructive malware",
+      "hit_endpoint": "investigate",
+      "latency_ms": 18166.098970999883,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 0.0,
+      "cve_hits": [],
+      "cve_misses": [
+        "CVE-2017-0144"
+      ],
+      "manual_minutes": 50
+    },
+    {
+      "id": 46,
+      "label": "Phishing to BEC full chain",
+      "query": "spearphishing email account takeover inbox rule exfiltration wire transfer BEC",
+      "hit_endpoint": "investigate",
+      "latency_ms": 6967.335378998541,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 40
+    },
+    {
+      "id": 47,
+      "label": "Credential stuffing to account takeover cloud",
+      "query": "credential stuffing password spray Azure Active Directory Office 365 cloud account compromise",
+      "hit_endpoint": "investigate",
+      "latency_ms": 21727.155226999457,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [
+        "T1078"
+      ],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 35
+    },
+    {
+      "id": 48,
+      "label": "Zero-day brokers and exploit sales",
+      "query": "zero-day exploit broker market nation state purchase weaponization",
+      "hit_endpoint": "investigate",
+      "latency_ms": 7258.701266000571,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 45
+    },
+    {
+      "id": 49,
+      "label": "AI-generated phishing and deepfake fraud",
+      "query": "AI generated spearphishing deepfake voice cloning CEO fraud social engineering 2024",
+      "hit_endpoint": "investigate",
+      "latency_ms": 5316.258780003409,
+      "error": null,
+      "technique_recall": 1.0,
+      "technique_hits": [],
+      "technique_misses": [],
+      "actor_recall": 1.0,
+      "actor_hits": [],
+      "actor_misses": [],
+      "cve_recall": 1.0,
+      "cve_hits": [],
+      "cve_misses": [],
+      "manual_minutes": 35
+    }
+  ]
+}
