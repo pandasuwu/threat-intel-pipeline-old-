@@ -6,8 +6,7 @@
 > narratives — with every claim traceable to a node in a knowledge graph.
 
 Capstone project, **IIT Gandhinagar × UNICC** (United Nations International
-Computing Centre). Supervised by Prof. Sameer Kulkarni. Faculty advisor:
-Dr. Rajeev Shorey.
+Computing Centre). Supervised by Prof. Sameer Kulkarni. 
 
 ![status](https://img.shields.io/badge/status-prototype-orange)
 ![python](https://img.shields.io/badge/python-3.11-blue)
