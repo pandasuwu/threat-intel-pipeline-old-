@@ -351,10 +351,8 @@ The four functional requirements from the UNICC × IITGN SOW (Nov 2025):
 
 ## acknowledgements
 
-- **UNICC** — for the partnership, the SOW, and grounding the project in real
-  operational constraints.
+- **UNICC** — for SOW
 - **Prof. Sameer Kulkarni** (IIT Gandhinagar) — supervisor.
-- **Dr. Rajeev Shorey** — faculty advisor.
 - **IIT Gandhinagar** — for HPC access on the Paramananta cluster.
 - The teams behind **MITRE ATT&CK**, **NVD**, **CVE Project**, **ENISA**,
   and the open-source threat intel community — the entire pipeline rests on
@@ -362,4 +360,3 @@ The four functional requirements from the UNICC × IITGN SOW (Nov 2025):
 
 ---
 
-*Built as a capstone deliverable, Feb–Aug 2026.*
