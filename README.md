@@ -140,46 +140,6 @@ no CVE not in the subgraph is reachable.
 
 ---
 
-## design decisions worth knowing
-
-These are documented in more detail in `Roadmaps/investigations/`.
-
-**LLMs last, not first.** The whole architecture is shaped by the rule that
-the LLM is the final, narrative-only stage. Retrieval and graph traversal
-happen *before* any generation. This is the inverse of typical
-"RAG-over-everything" designs, and it's the reason hallucination is zero.
-
-**NER doesn't work on CVE descriptions.** The first plan was to run CyNER
-(`AI4Sec/cyner-xlm-roberta-large`) over the CVE corpus to extract actors,
-malware, and campaigns. After a 50-shard SLURM array job on the Paramananta
-HPC, the result was: every single one of the 323,647 records returned an
-empty `entities[]` array. Root cause: CyNER was fine-tuned on **narrative
-threat report text**, where surface forms like "APT29 deployed Cobalt
-Strike via spearphishing" exist. CVE descriptions are terse and structured
-— they describe *vulnerabilities*, not *attacks*. The NER head had nothing
-to fire on. Verified the same pattern with GLiNER (zero-shot). Pivoted to
-deterministic CWE → ATT&CK structured extraction. NER stays useful for the
-threat report PDF chunks (still a SOW gap — see below).
-
-**Label your Neo4j MATCH at scale.** `MATCH ({stix_id: $x})` works fine at
-10k nodes and times out at 300k+. The fix was rewriting every match to
-`MATCH (v:Vulnerability {stix_id: $x})` so Neo4j hits the schema index
-instead of full-scanning. Relationship build went from "timeout after 600s"
-to ~4 minutes. Code in `fast_attack_rels.py`.
-
-**LLM provider ≠ design decision.** Started on `gemini-2.0-flash`, then
-`gemini-2.0-flash-lite` when the first hit free-tier quota mid-eval. Both
-exhausted within a day. Settled on OpenRouter + `llama-3.1-8b-instruct`
-(free tier) for the prototype. The narrative module abstracts the provider
-behind a single function — swap is trivial.
-
-**vis-network, not NeoVis.js.** NeoVis 2.x's `updateWithCypher` doesn't
-clear the previous graph between queries (bug, not feature). After two
-days fighting it, rebuilt the UI with `vis-network` calling the Neo4j HTTP
-API directly. CORS workaround: serve via `python3 -m http.server 3000`.
-
----
-
 ## quickstart
 
 ### prerequisites
@@ -314,39 +274,6 @@ External dependencies kept locally but **not in this repo**:
 | UI           | vanilla JS + vis-network                          |
 | HPC          | SLURM (Paramananta cluster, IITGN)                |
 
----
-
-## known gaps & roadmap
-
-Honest list — these are real, and they're tracked.
-
-- [ ] **PDF chunks not yet in Qdrant.** The threat report PDFs (AT&T, ENISA,
-  Microsoft) are parsed (`parse/parse.py` → `parse/*.json`/`*.md`), but the
-  chunks aren't embedded or indexed yet. `phase4/pdf_chunk_loader.py` is the
-  scaffold. This is a direct SOW gap and the next priority.
-- [ ] **CyNER over PDF chunks.** NER doesn't work on CVE descriptions, but
-  it should work on threat report narrative text — that experiment hasn't
-  been re-run since the pivot.
-- [ ] **Architecture diagram** (Excalidraw / draw.io export) in `docs/`,
-  not just the inline mermaid.
-- [ ] **Eval set expansion** beyond the current 50 queries.
-- [ ] **CI** — at minimum a `pytest` run on push.
-- [ ] **License decision** — pending check with UNICC re: their preference.
-
----
-
-## the SOW, mapped
-
-The four functional requirements from the UNICC × IITGN SOW (Nov 2025):
-
-| SOW requirement | where it lives |
-|----------------|----------------|
-| Automated summarization of threat landscape reports | `parse/parse.py` (extraction) + `phase4/narrative.py` (summarization) |
-| Extracting key points + generating readable narrative | `phase4/api.py` `/investigate` endpoint |
-| Searchability across historical event logs / threat reports | `phase4/search.py` (hybrid vector + graph) |
-| Enriched contextual analysis correlating new incidents with TTPs / MITRE ATT&CK | Neo4j graph + `/investigate` response payload |
-
----
 
 ## acknowledgements
 
