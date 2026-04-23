@@ -5,8 +5,7 @@
 > MITRE ATT&CK corpus, and major threat landscape reports into investigative
 > narratives — with every claim traceable to a node in a knowledge graph.
 
-Capstone project, **IIT Gandhinagar × UNICC** (United Nations International
-Computing Centre). Supervised by Prof. Sameer Kulkarni. 
+CS 299,  Supervised by Prof. Sameer Kulkarni. 
 
 ![status](https://img.shields.io/badge/status-prototype-orange)
 ![python](https://img.shields.io/badge/python-3.11-blue)
